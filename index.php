@@ -14,8 +14,6 @@ try {
     echo "Erreur de connexion : " . $e->getMessage();
 }
 
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
