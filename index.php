@@ -86,7 +86,6 @@ try {
             $sqlDelete = "DELETE FROM `vehicule` WHERE id_vehicule = '$idToDelete'";
             $stmt = $pdo->prepare($sqlDelete);
             $stmt->execute();
-            $resultsDelete = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         ?>
     </form>
