@@ -64,8 +64,39 @@ try {
         </select>
         <input type="submit" name="submitVehicule" value="Envoyé Type Vehicule dans la BDD">
     </form>
+    <hr>
+
+        <?php
+        $sql = "SELECT * FROM vehicule";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $resultsAll = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($resultsAll as $key => $value) {
+            $idASupprimer = $value['id_vehicule'];
+            echo "<form method='POST'>";
+            echo "<input type=\"hidden\" name=\"idDelete\" value='$idASupprimer'><br>";
+            foreach ($value as $key2 => $value2) {
+                echo $value2 . " ";
+            }
+            echo "<input type=\"submit\" name=\"submitDelete\" value=\"supprimer\"><br>";
+            echo "</form>";
+        }
+        if(isset($_POST['submitDelete'])){
+            $idToDelete = $_POST['idDelete'];
+            $sqlDelete = "DELETE FROM `vehicule` WHERE id_vehicule = '$idToDelete'";
+            $stmt = $pdo->prepare($sqlDelete);
+            $stmt->execute();
+            $resultsDelete = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        ?>
+    </form>
 </body>
 </html>
+
+
+
+
+
     <?php
 
 //Exploitation
