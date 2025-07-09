@@ -65,7 +65,7 @@ try {
         <input type="submit" name="submitVehicule" value="Envoyé Type Vehicule dans la BDD">
     </form>
     <hr>
-
+    <a ></a>
         <?php
         $sql = "SELECT * FROM vehicule";
         $stmt = $pdo->prepare($sql);
@@ -78,6 +78,7 @@ try {
             foreach ($value as $key2 => $value2) {
                 echo $value2 . " ";
             }
+            echo '<a href="index.php?id=' . $idASupprimer . '">Modifier</a>';
             echo "<input type=\"submit\" name=\"submitDelete\" value=\"supprimer\"><br>";
             echo "</form>";
         }
@@ -121,4 +122,44 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
     }
+    ?>
+    <hr>
+    <?php
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $sqlId = "SELECT * FROM Vehicule WHERE id_vehicule = '$id'";
+
+            $stmtId = $pdo->prepare($sqlId);
+            $stmtId->execute();
+            
+            $resultsId = $stmtId->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo '<form method="POST">
+            <label for="">ID</label>
+            <input type="text" name="idUpdate" value="' . $resultsId[0]['id_vehicule'] . '">
+            <br>
+            <label for="">Immatriculation</label>
+            <input type="text" name="immatriculationUpdate" value="' . $resultsId[0]['Immatriculation'] . '">
+            <br>
+            <label for="">Type de véhicule</label>
+            <input type="text" name="typeUpdate" value="' . $resultsId[0]['Type'] . '">
+            <br>
+            <label for="">Couleur</label>
+            <input type="text" name="couleurUpdate" value="' . $resultsId[0]['Couleur'] . '">
+            <br>
+            <input type="submit" name="submitUpdate" Value="Mettre à jour la BDD">
+            </form>';
+            var_dump($resultsId);
+        }
+        if (isset($_POST['submitUpdate'])){
+
+            $idUpdate = $_POST['idUpdate'];
+            $immatriculationUpdate = $_POST['immatriculationUpdate'];
+            $typeUpdate = $_POST['typeUpdate'];
+            $couleurUpdate = $_POST['couleurUpdate'];
+            
+            $sqlUpdate = "UPDATE `vehicule` SET `Immatriculation`='$immatriculationUpdate',`Type`='$typeUpdate',`Couleur`='$couleurUpdate' WHERE `id_vehicule` = '$idUpdate'";
+            $stmtUpdate = $pdo->prepare($sqlUpdate);
+            $stmtUpdate->execute();
+        }
     ?>
