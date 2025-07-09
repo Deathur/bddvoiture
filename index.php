@@ -149,7 +149,6 @@ try {
             <br>
             <input type="submit" name="submitUpdate" Value="Mettre à jour la BDD">
             </form>';
-            var_dump($resultsId);
         }
         if (isset($_POST['submitUpdate'])){
 
