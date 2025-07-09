@@ -92,10 +92,6 @@ try {
 </body>
 </html>
 
-
-
-
-
     <?php
 
 //Exploitation
